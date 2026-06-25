@@ -75,20 +75,6 @@
       position: relative;
     }
 
-    #logo-container {
-      position: absolute;
-      left: 28px;
-      bottom: 14px;
-      display: flex;
-      align-items: center;
-    }
-
-    #header-logo {
-      height: 42px;
-      width: auto;
-      object-fit: contain;
-    }
-
     #wordmark {
       font-family: 'Oswald', sans-serif;
       font-weight: 300;
@@ -97,8 +83,8 @@
       text-transform: uppercase;
       color: var(--white);
       padding-right: 0.55em;
+      position: relative;
       user-select: none;
-      z-index: 2;
     }
 
     #header-line {
@@ -357,7 +343,7 @@
       margin: 14px 0;
     }
 
-    /* ─── MOBILE & TABLET OPTIMIZATION ─── */
+    /* ─── NEW: MOBILE & TABLET OPTIMIZATION ─── */
     @media (max-width: 768px) {
       html, body {
         overflow-y: auto;
@@ -369,20 +355,7 @@
         width: 100vw;
       }
       #header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
         padding: 24px 0 10px 0;
-      }
-      #logo-container {
-        position: static;
-      }
-      #header-logo {
-        height: 50px;
-      }
-      #wordmark {
-        padding-right: 0.55em;
       }
       #header-line {
         width: 80%;
@@ -426,9 +399,6 @@
 <div id="shell">
 
   <header id="header">
-    <div id="logo-container">
-      <img id="header-logo" src="TAEUBINI_Logo_transparent.png" alt="TAEUBINI Logo"/>
-    </div>
     <h1 id="wordmark">TAEUBINI</h1>
     <div id="header-line"></div>
   </header>
