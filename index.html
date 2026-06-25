@@ -22,7 +22,6 @@
       --color-xbox: #107c10;
       --color-switch: #e60012;
       --color-pc: transparent;
-      --color-neutral: rgba(255,255,255,0.1);
     }
 
     html, body {
@@ -165,78 +164,85 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ─── REVIEW CARDS ─── */
+    /* ─── NEW REVIEW CARDS (EXCEL LAYOUT) ─── */
     .card {
       background: rgba(10, 10, 14, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 0px;
-      position: relative;
+      padding: 24px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Bildbereich der Karte */
-    .review-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    /* Inhaltsbereich der Karte */
-    .review-content {
-      padding: 24px 28px;
-    }
-
-    /* Das Platformfeld */
-    .platform-feld {
-      display: inline-block;
-      padding: 6px 14px;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
-
-    /* Farblogik für Plattformen */
-    .card.ps { border-left: 4px solid var(--color-ps); }
-    .card.ps .platform-feld { background-color: var(--color-ps); }
-
-    .card.xbox { border-left: 4px solid var(--color-xbox); }
-    .card.xbox .platform-feld { background-color: var(--color-xbox); }
-
-    .card.switch { border-left: 4px solid var(--color-switch); }
-    .card.switch .platform-feld { background-color: var(--color-switch); }
-
-    .card.pc { border-left: 4px solid var(--color-neutral); }
-    .card.pc .platform-feld { 
-      background-color: var(--color-pc); 
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .card h2 {
+    .review-title {
       font-family: 'Oswald', sans-serif;
       font-weight: 400;
       font-size: 1.6rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #ffffff; /* Immer weiss */
-      margin-bottom: 8px;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(255,255,255,0.15);
     }
 
-    .card p {
+    .review-body {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+    }
+
+    .review-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .review-details {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .detail-value {
       font-size: 0.85rem;
-      line-height: 1.7;
-      color: #ffffff; /* Immer weiss */
+      line-height: 1.6;
+      color: #ffffff;
     }
 
-    .divider {
-      width: 40px; height: 1px;
-      background: rgba(255,255,255,0.2);
-      margin: 12px 0 16px 0;
+    /* Plattform-Feld Logik */
+    .pf-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    
+    .bg-ps { background-color: var(--color-ps); }
+    .bg-xbox { background-color: var(--color-xbox); }
+    .bg-switch { background-color: var(--color-switch); }
+    .bg-pc { 
+      background-color: var(--color-pc); 
+      border: 1px solid rgba(255,255,255,0.5); 
+      padding: 3px 9px; 
     }
 
     /* ─── MOBILE & TABLET ─── */
@@ -255,6 +261,14 @@
       #sidebar { grid-row: 2; grid-column: 1; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 10px; gap: 8px; }
       .nav-btn { width: auto; padding: 8px 14px; font-size: 0.7rem; }
       #content { grid-row: 3; grid-column: 1; padding: 16px 20px 40px 20px; }
+      
+      .review-body {
+        grid-template-columns: 1fr;
+      }
+      .review-image {
+        max-width: 200px;
+        margin: 0 auto;
+      }
     }
   </style>
 </head>
@@ -289,58 +303,116 @@
 
     <!-- HOME -->
     <div id="page-home" class="page active">
-      <div class="card" style="padding: 24px 28px;">
-        <div class="platform-feld" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.3);">Welcome</div>
-        <h2>TAEUBINI</h2>
-        <div class="divider"></div>
-        <p>Personal GitHub presence. Welcome to my personal hub for deep-dive reviews, gameplay analysis, and media logs.</p>
+      <div class="card">
+        <div class="review-title" style="border: none; padding: 0; margin-bottom: 10px;">WELCOME TO TAEUBINI</div>
+        <div class="detail-value" style="text-align: center;">Personal GitHub presence. Deep-dive reviews, gameplay analysis, and media logs.</div>
       </div>
     </div>
 
     <!-- SPIELEBEWERTUNGEN -->
     <div id="page-spielebewertungen" class="page">
       
-      <!-- BEISPIEL: PLAYSTATION -->
-      <div class="card ps">
-        <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Game Cover" class="review-image"/>
-        <div class="review-content">
-          <div class="platform-feld">PlayStation</div>
-          <h2>Game Titel PS</h2>
-          <div class="divider"></div>
-          <p>Hier steht dein Text für die Playstation Bewertung. Alles ist rein weiss. Lade das Bild einfach auf Github hoch, nenne es "TAEUBINI_ReviewGame_NAME.jpg" (oder ersetze den Namen im img-Tag).</p>
+      <!-- PC BEISPIEL -->
+      <div class="card">
+        <div class="review-title">SPIELNAME PC</div>
+        <div class="review-body">
+          <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Cover" class="review-image" />
+          <div class="review-details">
+            <div class="detail-row">
+              <span class="detail-label">Platform</span>
+              <span class="pf-badge bg-pc">PC</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bewertung</span>
+              <span class="detail-value">9 / 10</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spieldauer</span>
+              <span class="detail-value">120 Stunden</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bemerkung</span>
+              <span class="detail-value">Hervorragende Simulation. Keine technischen Probleme auf dem PC.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- BEISPIEL: XBOX -->
-      <div class="card xbox">
-        <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Game Cover" class="review-image"/>
-        <div class="review-content">
-          <div class="platform-feld">Xbox</div>
-          <h2>Game Titel Xbox</h2>
-          <div class="divider"></div>
-          <p>Das grüne Xbox Layout.</p>
+      <!-- PLAYSTATION BEISPIEL -->
+      <div class="card">
+        <div class="review-title">SPIELNAME PLAYSTATION</div>
+        <div class="review-body">
+          <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Cover" class="review-image" />
+          <div class="review-details">
+            <div class="detail-row">
+              <span class="detail-label">Platform</span>
+              <span class="pf-badge bg-ps">PlayStation</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bewertung</span>
+              <span class="detail-value">8 / 10</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spieldauer</span>
+              <span class="detail-value">45 Stunden</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bemerkung</span>
+              <span class="detail-value">Tolle Story, saubere 60 FPS auf der Konsole.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- BEISPIEL: NINTENDO SWITCH -->
-      <div class="card switch">
-        <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Game Cover" class="review-image"/>
-        <div class="review-content">
-          <div class="platform-feld">Nintendo Switch</div>
-          <h2>Game Titel Switch</h2>
-          <div class="divider"></div>
-          <p>Das rote Switch Layout.</p>
+      <!-- XBOX BEISPIEL -->
+      <div class="card">
+        <div class="review-title">SPIELNAME XBOX</div>
+        <div class="review-body">
+          <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Cover" class="review-image" />
+          <div class="review-details">
+            <div class="detail-row">
+              <span class="detail-label">Platform</span>
+              <span class="pf-badge bg-xbox">Xbox</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bewertung</span>
+              <span class="detail-value">7.5 / 10</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spieldauer</span>
+              <span class="detail-value">30 Stunden</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bemerkung</span>
+              <span class="detail-value">Gutes Gameplay, aber etwas kurze Kampagne.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- BEISPIEL: PC -->
-      <div class="card pc">
-        <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Game Cover" class="review-image"/>
-        <div class="review-content">
-          <div class="platform-feld">PC</div>
-          <h2>Planet Coaster</h2>
-          <div class="divider"></div>
-          <p>Das transparente PC Layout mit leichtem weissen Rand für die Sichtbarkeit des Feldes.</p>
+      <!-- SWITCH BEISPIEL -->
+      <div class="card">
+        <div class="review-title">SPIELNAME SWITCH</div>
+        <div class="review-body">
+          <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Cover" class="review-image" />
+          <div class="review-details">
+            <div class="detail-row">
+              <span class="detail-label">Platform</span>
+              <span class="pf-badge bg-switch">Nintendo Switch</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bewertung</span>
+              <span class="detail-value">8.5 / 10</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spieldauer</span>
+              <span class="detail-value">80 Stunden</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bemerkung</span>
+              <span class="detail-value">Perfekt für Unterwegs, auch wenn die Grafik leicht reduziert ist.</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -349,14 +421,26 @@
     <!-- FILMBEWERTUNGEN -->
     <div id="page-filmbewertungen" class="page">
       
-      <!-- BEISPIEL: FILM (ohne Plattform) -->
+      <!-- FILM BEISPIEL -->
       <div class="card">
-        <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Movie Cover" class="review-image"/>
-        <div class="review-content">
-          <div class="platform-feld" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.3);">Cinema</div>
-          <h2>Beispiel Film</h2>
-          <div class="divider"></div>
-          <p>Filmbewertung. Das Bild wird oben angezeigt, es gibt kein Plattformfeld in Farbe, sondern nur ein neutrales Label.</p>
+        <div class="review-title">FILMNAME</div>
+        <div class="review-body">
+          <img src="TAEUBINI_ReviewGame_NAME.jpg" alt="Cover" class="review-image" />
+          <div class="review-details">
+            <!-- Platformfeld wurde bei Filmen weggelassen -->
+            <div class="detail-row">
+              <span class="detail-label">Bewertung</span>
+              <span class="detail-value">9.5 / 10</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Spieldauer</span>
+              <span class="detail-value">148 Minuten</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Bemerkung</span>
+              <span class="detail-value">Hervorragendes Pacing und großartige Kameraarbeit. Meisterwerk.</span>
+            </div>
+          </div>
         </div>
       </div>
 
