@@ -75,6 +75,20 @@
       position: relative;
     }
 
+    #logo-container {
+      position: absolute;
+      left: 28px;
+      bottom: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    #header-logo {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
     #wordmark {
       font-family: 'Oswald', sans-serif;
       font-weight: 300;
@@ -83,8 +97,8 @@
       text-transform: uppercase;
       color: var(--white);
       padding-right: 0.55em;
-      position: relative;
       user-select: none;
+      z-index: 2;
     }
 
     #header-line {
@@ -282,58 +296,8 @@
       font-weight: 400;
     }
 
-    .contact-link {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      font-size: 1.1rem;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .contact-link:hover {
-      color: var(--gold);
-    }
-
     .row { display: flex; gap: 16px; }
     .row .card { flex: 1; }
-
-    /* Tags */
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .tag {
-      font-size: 0.68rem;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 20px;
-      background: rgba(201,168,76,0.10);
-      border: 0.5px solid rgba(201,168,76,0.28);
-      color: rgba(201,168,76,0.85);
-    }
-
-    /* Stat grid */
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .stat {
-      background: rgba(255,255,255,0.04);
-      border: 0.5px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 18px 20px;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      font-size: 1.8rem;
-      letter-spacing: 0.06em;
-      color: var(--white);
-    }
-    .stat-lbl {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-top: 4px;
-    }
 
     /* Gold divider */
     .divider {
@@ -343,7 +307,7 @@
       margin: 14px 0;
     }
 
-    /* ─── NEW: MOBILE & TABLET OPTIMIZATION ─── */
+    /* ─── MOBILE & TABLET OPTIMIZATION ─── */
     @media (max-width: 768px) {
       html, body {
         overflow-y: auto;
@@ -355,7 +319,20 @@
         width: 100vw;
       }
       #header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
         padding: 24px 0 10px 0;
+      }
+      #logo-container {
+        position: static;
+      }
+      #header-logo {
+        height: 50px;
+      }
+      #wordmark {
+        padding-right: 0.55em;
       }
       #header-line {
         width: 80%;
@@ -385,9 +362,6 @@
       .row {
         flex-direction: column;
       }
-      .stats {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -399,6 +373,9 @@
 <div id="shell">
 
   <header id="header">
+    <div id="logo-container">
+      <img id="header-logo" src="TAEUBINI_Logo_transparent.png" alt="TAEUBINI Logo"/>
+    </div>
     <h1 id="wordmark">TAEUBINI</h1>
     <div id="header-line"></div>
   </header>
@@ -407,17 +384,8 @@
     <button class="nav-btn active" onclick="show('home',this)">
       <span class="btn-dot"></span>Home
     </button>
-    <button class="nav-btn" onclick="show('about',this)">
-      <span class="btn-dot"></span>About
-    </button>
-    <button class="nav-btn" onclick="show('projects',this)">
-      <span class="btn-dot"></span>Projects
-    </button>
-    <button class="nav-btn" onclick="show('skills',this)">
-      <span class="btn-dot"></span>Skills
-    </button>
-    <button class="nav-btn" onclick="show('contact',this)">
-      <span class="btn-dot"></span>Contact
+    <button class="nav-btn" onclick="show('bewertungen',this)">
+      <span class="btn-dot"></span>Bewertungen
     </button>
   </nav>
 
@@ -442,79 +410,12 @@
       </div>
     </div>
 
-    <div id="page-about" class="page">
+    <div id="page-bewertungen" class="page">
       <div class="card">
-        <div class="card-label">Background</div>
-        <h2>About</h2>
+        <div class="card-label">Feedback</div>
+        <h2>Bewertungen</h2>
         <div class="divider"></div>
-        <p>Based in <strong>Switzerland</strong>. IT professional with a preference for things that work exactly as described — no more, no less. I solve problems with code when the existing tools don't cut it.</p>
-      </div>
-      <div class="card">
-        <div class="card-label">Philosophy</div>
-        <p>Build production-quality from the start. Ship when it's right, not when it's done. Prefer a clean rewrite over a patch stack.</p>
-      </div>
-    </div>
-
-    <div id="page-projects" class="page">
-      <div class="card">
-        <div class="card-label">Current</div>
-        <h2>Projects</h2>
-        <div class="divider"></div>
-        <p><strong>FileCopy Utility</strong> — PowerShell + WinForms GUI compiled to a standalone Windows EXE via ps2exe. No runtime dependencies, no installer.</p>
-        <div class="tags">
-          <span class="tag">PowerShell</span>
-          <span class="tag">WinForms</span>
-          <span class="tag">ps2exe</span>
-          <span class="tag">Windows</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-label">Approach</div>
-        <p>Repositories go public when they reach a stable, documented state. Quality over quantity — every repo should be something someone else can actually use.</p>
-      </div>
-    </div>
-
-    <div id="page-skills" class="page">
-      <div class="card">
-        <div class="card-label">Technical</div>
-        <h2>Skills</h2>
-        <div class="divider"></div>
-        <div class="tags">
-          <span class="tag">PowerShell</span>
-          <span class="tag">IT Infrastructure</span>
-          <span class="tag">Windows</span>
-          <span class="tag">Scripting</span>
-          <span class="tag">Networking</span>
-          <span class="tag">Hardware</span>
-          <span class="tag">Automation</span>
-        </div>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-num">01</div>
-          <div class="stat-lbl">Focus: Infra</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">PS</div>
-          <div class="stat-lbl">Core Lang</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-lbl">Automation</div>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-contact" class="page">
-      <div class="card">
-        <div class="card-label">Get in touch</div>
-        <h2>Contact</h2>
-        <div class="divider"></div>
-        <p>Find me on GitHub. Direct, no noise — same as the code.</p>
-      </div>
-      <div class="card">
-        <div class="card-label">GitHub</div>
-        <a href="https://github.com/taeubini" target="_blank" class="contact-link">github.com/taeubini</a>
+        <p>Hier ist Platz für zukünftige Bewertungen, Reviews oder System-Logs.</p>
       </div>
     </div>
 
