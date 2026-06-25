@@ -68,27 +68,28 @@
     /* ─── HEADER ─── */
     #header {
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 200px 1fr 200px; /* Hält das Wordmark zentriert */
+      display: flex;
       align-items: flex-end;
+      justify-content: center;
       padding-bottom: 14px;
       position: relative;
     }
 
     #logo-container {
-      padding-left: 28px;
+      position: absolute;
+      left: 28px;
+      bottom: 14px;
       display: flex;
       align-items: center;
     }
 
     #header-logo {
-      height: 42px; /* Skaliert das Logo proportional */
+      height: 42px;
       width: auto;
       object-fit: contain;
     }
 
     #wordmark {
-      grid-column: 2;
       font-family: 'Oswald', sans-serif;
       font-weight: 300;
       font-size: clamp(2rem, 4.5vw, 3.4rem);
@@ -96,8 +97,8 @@
       text-transform: uppercase;
       color: var(--white);
       padding-right: 0.55em;
-      justify-self: center;
       user-select: none;
+      z-index: 2;
     }
 
     #header-line {
@@ -375,10 +376,10 @@
         padding: 24px 0 10px 0;
       }
       #logo-container {
-        padding-left: 0;
+        position: static;
       }
       #header-logo {
-        height: 50px; /* Leicht vergrößert für bessere Sichtbarkeit auf Mobilgeräten */
+        height: 50px;
       }
       #wordmark {
         padding-right: 0.55em;
