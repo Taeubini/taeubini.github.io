@@ -296,19 +296,6 @@
       font-weight: 400;
     }
 
-    /* Tags */
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .tag {
-      font-size: 0.68rem;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 20px;
-      background: rgba(201,168,76,0.10);
-      border: 0.5px solid rgba(201,168,76,0.28);
-      color: rgba(201,168,76,0.85);
-    }
-
     /* Gold divider */
     .divider {
       width: 32px; height: 0.5px;
@@ -391,11 +378,8 @@
     <button class="nav-btn active" onclick="show('home',this)">
       <span class="btn-dot"></span>Home
     </button>
-    <button class="nav-btn" onclick="show('spielebewertungen',this)">
-      <span class="btn-dot"></span>Spiele
-    </button>
-    <button class="nav-btn" onclick="show('filmbewertungen',this)">
-      <span class="btn-dot"></span>Filme
+    <button class="nav-btn" onclick="show('bewertungen',this)">
+      <span class="btn-dot"></span>Bewertungen
     </button>
   </nav>
 
@@ -406,30 +390,16 @@
         <div class="card-label">Welcome</div>
         <h2>TAEUBINI</h2>
         <div class="divider"></div>
-        <p>Personal GitHub presence. Welcome to my personal hub for deep-dive reviews, gameplay analysis, and media logs.</p>
+        <p>Personal GitHub presence. I build practical tools, automate workflows, and explore systems — from <strong>PowerShell scripts</strong> to hardware modifications.</p>
       </div>
     </div>
 
-    <div id="page-spielebewertungen" class="page">
+    <div id="page-bewertungen" class="page">
       <div class="card">
-        <div class="card-label">Review — Simulation</div>
-        <h2>Planet Coaster 2</h2>
+        <div class="card-label">Feedback</div>
+        <h2>Bewertungen</h2>
         <div class="divider"></div>
-        <p>Hier kannst du deine detaillierte Analyse zu Gameplay, Mechaniken und Park-Management einfügen. Nutze die <strong>Tags</strong> unten für die Plattformübersicht.</p>
-        <div class="tags">
-          <span class="tag">PC / Steam</span>
-          <span class="tag">Simulation</span>
-          <span class="tag">Strategy</span>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-filmbewertungen" class="page">
-      <div class="card">
-        <div class="card-label">Review — Cinema</div>
-        <h2>Beispiel-Film</h2>
-        <div class="divider"></div>
-        <p>Hier ist der saubere Platz für deine Filmbewertungen — komplett fokussiert auf Story, Regie und Atmosphäre, <strong>ohne Angabe einer Plattform</strong>.</p>
+        <p>Hier ist Platz für zukünftige Bewertungen, Reviews oder System-Logs.</p>
       </div>
     </div>
 
