@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TAEUBINI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --black:#060608;
+      --white:#fff;
+      --neon-pink:#ff3df2;
+      --neon-blue:#00e5ff;
+    }
+
+    html,body{
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background:var(--black);
+      color:white;
+      font-family:Inter;
+    }
+
+    /* Layout minimal übernommen */
+    #shell{
+      display:grid;
+      grid-template-columns:200px 1fr;
+      grid-template-rows:88px 1fr;
+      width:100vw;height:100vh;
+    }
+
+    #header{
+      grid-column:1/-1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:Oswald;
+      letter-spacing:0.5em;
+      font-size:2rem;
+    }
+
+    #sidebar{
+      grid-row:2;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .nav-btn{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      color:white;
+      padding:10px;
+      cursor:pointer;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+    }
+
+    .nav-btn.active{
+      border-color:var(--neon-pink);
+      color:var(--neon-pink);
+    }
+
+    #content{
+      grid-row:2;
+      padding:20px;
+    }
+
+    .page{display:none;}
+    .page.active{display:block;}
+
+    /* ───── GAME ───── */
+    #gameCanvas{
+      width:100%;
+      height:80vh;
+      background:linear-gradient(180deg,#050510,#0a0a1a);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    #score{
+      position:absolute;
+      top:100px;
+      right:30px;
+      font-size:20px;
+      color:var(--neon-pink);
+      font-family:Oswald;
+    }
+
+    #gameWrap{
+      position:relative;
+    }
+
+    .glow{
+      text-shadow:0 0 10px var(--neon-pink),0 0 20px var(--neon-pink);
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="shell">
+
+  <div id="header">TAEUBINI</div>
+
+  <div id="sidebar">
+    <button class="nav-btn active" onclick="show('home',this)">Home</button>
+    <button class="nav-btn" onclick="show('game',this)">Spiel</button>
+  </div>
+
+  <div id="content">
+
+    <!-- HOME -->
+    <div id="page-home" class="page active">
+      <h2>Welcome</h2>
+      <p>Neue Game-Seite links im Menü öffnen.</p>
+    </div>
+
+    <!-- GAME -->
+    <div id="page-game" class="page">
+
+      <div id="gameWrap">
+        <div id="score" class="glow">0 m</div>
+        <canvas id="gameCanvas"></canvas>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+
+  if(id === 'game') initGame();
+}
+
+/* ───── SIMPLE ENDLESS RUNNER ───── */
+let canvas,ctx,player,obstacles,score,gameSpeed,gravity,jumping;
+
+function initGame(){
+  canvas=document.getElementById('gameCanvas');
+  ctx=canvas.getContext('2d');
+
+  canvas.width=canvas.offsetWidth;
+  canvas.height=canvas.offsetHeight;
+
+  player={x:80,y:canvas.height-80,w:60,h:30,vy:0,onGround:true};
+
+  obstacles=[];
+  score=0;
+  gameSpeed=6;
+  gravity=0.8;
+  jumping=false;
+
+  document.getElementById("score").innerText="0 m";
+
+  window.onkeydown=(e)=>{
+    if(e.code==="Space") jump();
+  };
+
+  loop();
+}
+
+function jump(){
+  if(player.onGround){
+    player.vy=-15;
+    player.onGround=false;
+  }
+}
+
+function spawnObstacle(){
+  obstacles.push({
+    x:canvas.width,
+    y:canvas.height-60,
+    w:30,
+    h:60
+  });
+}
+
+let frame=0;
+
+function loop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  /* road */
+  ctx.fillStyle="#111";
+  ctx.fillRect(0,canvas.height-40,canvas.width,40);
+
+  /* neon line */
+  ctx.strokeStyle="#ff3df2";
+  ctx.beginPath();
+  ctx.moveTo(0,canvas.height-40);
+  ctx.lineTo(canvas.width,canvas.height-40);
+  ctx.stroke();
+
+  /* player (pink Cadillac) */
+  ctx.fillStyle="#ff3df2";
+  ctx.shadowBlur=20;
+  ctx.shadowColor="#ff3df2";
+  ctx.fillRect(player.x,player.y,player.w,player.h);
+  ctx.shadowBlur=0;
+
+  /* physics */
+  player.y += player.vy;
+  player.vy += gravity;
+
+  if(player.y >= canvas.height-80){
+    player.y = canvas.height-80;
+    player.onGround=true;
+  }
+
+  /* obstacles */
+  if(frame % 90 === 0) spawnObstacle();
+
+  for(let i=0;i<obstacles.length;i++){
+    let o=obstacles[i];
+    o.x -= gameSpeed;
+
+    ctx.fillStyle="#00e5ff";
+    ctx.shadowBlur=15;
+    ctx.shadowColor="#00e5ff";
+    ctx.fillRect(o.x,o.y,o.w,o.h);
+    ctx.shadowBlur=0;
+
+    /* collision */
+    if(
+      player.x < o.x + o.w &&
+      player.x + player.w > o.x &&
+      player.y < o.y + o.h &&
+      player.y + player.h > o.y
+    ){
+      alert("Crash! Score: " + score);
+      return;
+    }
+  }
+
+  /* remove offscreen */
+  obstacles=obstacles.filter(o=>o.x>-50);
+
+  /* score = distance */
+  score += 1;
+  document.getElementById("score").innerText = score + " m";
+
+  frame++;
+  requestAnimationFrame(loop);
+}
+</script>
+
+</body>
+</html>
